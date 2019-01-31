@@ -52,10 +52,9 @@ public class BookController {
     @GetMapping(path = "/books", produces = "application/json")
     public ResponseEntity<?> getBooks() {
         List<Book> books = bookService.getBooks();
-        books.stream()
+        return new ResponseEntity(books.stream()
                 .map(book -> modelMapper.map(book, BookBaseDto.class))
-                .collect(Collectors.toList());
-        return new ResponseEntity(bookService.getBooks(), HttpStatus.OK);
+                .collect(Collectors.toList()), HttpStatus.OK);
 
     }
 
